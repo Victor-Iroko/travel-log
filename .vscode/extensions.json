@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "oven.bun-vscode",
+    "ms-azuretools.vscode-containers",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "github.vscode-github-actions",
+    "antfu.iconify",
+    "PKief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "Prisma.prisma",
+    "bradlc.vscode-tailwindcss",
+    "rangav.vscode-thunder-client",
+    "Vue.volar"
+  ]
+}
