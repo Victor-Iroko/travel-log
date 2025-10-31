@@ -1,5 +1,11 @@
+<script setup lang="ts">
+await useAuthStore().init()
+</script>
+
 <template>
   <UApp>
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </UApp>
 </template>

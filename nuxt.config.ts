@@ -9,11 +9,14 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/seo',
+    '@vueuse/motion/nuxt',
   ],
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     databaseUrl: '',
+    githubClientId: '',
+    githubClientSecret: '',
   },
   compatibilityDate: '2025-07-15',
   eslint: {
