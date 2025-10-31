@@ -1,7 +1,5 @@
 export default defineNitroPlugin(() => {
-  const config = useRuntimeConfig() as unknown as UseRuntimeConfigType
-
-  const parsed = envSchema.safeParse(config)
+  const parsed = envSchema.safeParse(process.env)
 
   if (!parsed.success) {
     const message

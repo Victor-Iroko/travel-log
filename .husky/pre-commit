@@ -1,1 +1,2 @@
 bun exec lint-staged
+bun run build
