@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const authStore = useAuthStore()
+</script>
+
 <template>
   <div>
     <UPageHero
@@ -15,7 +19,13 @@
       </template>
 
       <template #links>
-        <AppSignInButton />
+        <UButton
+          v-if="authStore.user"
+          to="/dashboard"
+        >
+          Go to Dashboard
+        </UButton>
+        <AppSignInButton v-else />
       </template>
     </UPageHero>
   </div>

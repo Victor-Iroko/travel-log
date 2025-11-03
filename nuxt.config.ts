@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/seo',
     '@vueuse/motion/nuxt',
+    'nuxt-csurf',
   ],
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
