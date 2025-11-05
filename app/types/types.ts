@@ -8,3 +8,5 @@ export type MapPoint = {
   name: string
   description: string | null
 } & LatLongItem
+
+export type SetLocationEmit = Pick<MapPoint, 'name' | 'long' | 'lat'>

@@ -39,10 +39,7 @@ const updateAddedPoint = (location: LngLat) => {
 }
 
 const onDoubleClick = (event: MglEvent<'dblclick'>) => {
-  if (mapStore.addedPoint) {
-    mapStore.addedPoint.lat = event.event.lngLat.lat
-    mapStore.addedPoint.long = event.event.lngLat.lng
-  }
+  updateAddedPoint(event.event.lngLat)
 }
 </script>
 
@@ -58,6 +55,7 @@ const onDoubleClick = (event: MglEvent<'dblclick'>) => {
       v-if="mapStore.addedPoint"
       :coordinates="[mapStore.addedPoint.long, mapStore.addedPoint.lat]"
       draggable
+      class-name="z-50"
       @update:coordinates="updateAddedPoint"
     >
       <template #marker>

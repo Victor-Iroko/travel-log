@@ -1,12 +1,10 @@
+import z from 'zod'
+
 export default defineNitroPlugin(() => {
   const parsed = envSchema.safeParse(process.env)
 
   if (!parsed.success) {
-    const message
-      = '❌ Invalid environment variables:\n'
-        + parsed.error.issues
-          .map(issue => `  • ${issue.path.join('.')} — ${issue.message}`)
-          .join('\n')
+    const message = z.prettifyError(parsed.error)
 
     if (import.meta.dev) {
       // eslint-disable-next-line no-console

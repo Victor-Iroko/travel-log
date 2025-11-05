@@ -1,4 +1,5 @@
 import { DrizzleQueryError } from 'drizzle-orm'
+import z from 'zod'
 import { InsertLocationSchema } from '~~/shared/validation/location-schema'
 import { findLocationByNameAndUser, insertLocation } from '../database/queries/location'
 import { generateUniqueSlug } from '../utils/generate-slug'
@@ -8,7 +9,7 @@ export default defineAuthenticatedEventHandler(async (event) => {
   if (!result.success) {
     return sendError(event, createError({
       statusCode: 422,
-      statusMessage: formatZodError(result.error),
+      statusMessage: z.prettifyError(result.error),
     }))
   }
 

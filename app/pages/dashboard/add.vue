@@ -3,6 +3,7 @@ import { LazyAppLocationLeaveConfirmationModal } from '#components'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { FetchError } from 'ofetch'
 import type * as z from 'zod'
+import type { SetLocationEmit } from '~/types/types'
 import { InsertLocationSchema } from '~~/shared/validation/location-schema'
 
 const router = useRouter()
@@ -24,11 +25,18 @@ const initialValues: FormSchemaType = {
 
 const formState = ref<FormSchemaType>({ ...initialValues })
 
+const setLocation = (payload: SetLocationEmit) => {
+  formState.value = { ...formState.value, ...payload }
+  if (mapStore.addedPoint) {
+    mapStore.addedPoint = { ...mapStore.addedPoint, ...payload, centerMap: true }
+  }
+}
+
 const onSubmit = async (event: FormSubmitEvent<FormSchemaType>) => {
   try {
     await $csrfFetch('/api/locations', { method: 'POST', body: event.data })
     toast.add({ title: 'Success', description: 'Location added', color: 'success', icon: 'lsicon:submit-outline' })
-    Object.assign(formState.value, initialValues)
+    formState.value = { ...formState.value, ...initialValues }
     mapStore.addedPoint = null
     navigateTo('/dashboard')
   }
@@ -158,6 +166,18 @@ onBeforeRouteLeave(async (to, from, next) => {
                 </UButton>
               </div>
             </UForm>
+
+            <USeparator class="my-4" />
+
+            <span class="flex justify-end text-xs italic gap-1">
+              Search results provided by: <ULink
+                class="underline"
+                to="https://nominatim.openstreetmap.org/ui/search.html"
+                target="_blank"
+              >nominatim</ULink>
+            </span>
+
+            <AppSearch @set-location="setLocation" />
           </UContainer>
         </div>
 

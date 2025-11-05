@@ -14,8 +14,10 @@ export const useMapStore = defineStore('useMapStore', () => {
   )
 
   const selectedPoint = ref<MapPoint | null>(null)
-  const addedPoint = ref<MapPoint | null>(null)
+  const addedPoint = ref<MapPoint & { centerMap?: boolean } | null>(null)
 
+  // init function to set all your computed and watchers
+  // but we do this because it is an async function and has to run as a client side code
   async function init() {
     const { useMap } = await import('@indoorequal/vue-maplibre-gl')
     const { LngLatBounds } = await import ('maplibre-gl')
@@ -46,17 +48,15 @@ export const useMapStore = defineStore('useMapStore', () => {
       }
     }
 
-    /**
-     * Auto-fit bounds when data changes.
-     */
-    effect(() => {
-      if (!addedPoint.value) {
+    watch(addedPoint, (newValue, oldValue) => {
+      // this is for when you just enter a page with a map it would autofit but disable when you pick the marker
+      if (!newValue) {
         fitToBounds()
       }
-    })
 
-    watch(addedPoint, (newValue, oldValue) => {
-      if (newValue && !oldValue) {
+      // you're going from the locations page to the added page (we set the new value when we mount the add.vue)
+      // or you set the locations from the search locations part it would fly to the
+      if ((newValue && !oldValue) || newValue?.centerMap) {
         map.map?.flyTo({
           center: [newValue.long, newValue.lat],
           speed: 0.8,
