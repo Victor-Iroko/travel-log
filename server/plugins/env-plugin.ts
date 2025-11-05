@@ -9,9 +9,11 @@ export default defineNitroPlugin(() => {
           .join('\n')
 
     if (import.meta.dev) {
+      // eslint-disable-next-line no-console
       console.error(message)
     }
     else {
+      // eslint-disable-next-line no-console
       console.error(message)
       throw createError({
         statusCode: 500,

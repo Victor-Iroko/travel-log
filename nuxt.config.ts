@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@vueuse/motion/nuxt',
     'nuxt-csurf',
+    'nuxt-maplibre',
   ],
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
